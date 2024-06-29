@@ -4,6 +4,8 @@ import NavBar from './components/NavBar';
 import Home from './components/Home';
 import JuntarMesasRelatorio from './components/JuntarMesasRelatorio';
 import RelatorioMensal from './components/RelatorioMensal';
+import Login from './components/Login';
+import PrivateRoute from './components/PrivateRoute';
 import './index.css';
 
 const App = () => {
@@ -13,8 +15,23 @@ const App = () => {
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/juntarmesasrelatorio" element={<JuntarMesasRelatorio />} />
-          <Route path="/relatoriomensal" element={<RelatorioMensal />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/juntarmesasrelatorio"
+            element={
+              <PrivateRoute>
+                <JuntarMesasRelatorio />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/relatoriomensal"
+            element={
+              <PrivateRoute>
+                <RelatorioMensal />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </div>
     </Router>

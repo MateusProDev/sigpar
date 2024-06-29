@@ -1,0 +1,9 @@
+[
+    { "nome": "Pizza Marguerita", "valor": 30.00 },
+    { "nome": "Pizza Pepperoni", "valor": 35.00 },
+    { "nome": "Hambúrguer", "valor": 20.00 },
+    { "nome": "Batata Frita", "valor": 10.00 },
+    { "nome": "Refrigerante", "valor": 5.00 },
+    { "nome": "Suco Natural", "valor": 7.00 }
+  ]
+  
