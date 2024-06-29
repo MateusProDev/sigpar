@@ -1,0 +1,44 @@
+/* Estilo geral para o menu de navegação */
+nav {
+    background-color: #007bff; /* Cor de fundo do menu */
+    padding: 10px 0; /* Espaçamento interno */
+  }
+  
+  
+  /* Estilo para a lista não ordenada (ul) dentro do nav */
+  nav ul {
+    list-style-type: none; /* Remove os estilos padrão da lista */
+    margin: 0; /* Remove margem padrão */
+    padding: 0; /* Remove padding padrão */
+    text-align: center; /* Alinha os itens ao centro */
+  }
+  /* Estilo hover para os links */
+  nav ul li:hover {
+    background-color: #555; /* Cor de fundo ao passar o mouse */
+    border-radius: 5px; /* Arredonda as bordas */
+  }
+  
+  /* Estilo para cada item de menu (li) */
+  nav ul li {
+    display: inline; /* Exibe os itens de menu em linha */
+    margin-right: 20px; /* Espaçamento entre os itens de menu */
+  }
+  
+  /* Estilo para os links (a) dentro dos itens de menu */
+  nav ul li a {
+    color: #333; /* Cor do texto dos links */
+    text-decoration: none; /* Remove sublinhado dos links */
+    font-size: 1.2rem; /* Tamanho da fonte */
+    padding: 10px 15px; /* Espaçamento interno dos links */
+    transition: all 0.3s ease; /* Transição suave para efeitos */
+  }
+  nav ul li a:hover {
+    color: #fff;
+  }
+  
+  /* Estilo ativo para o link atual */
+  nav ul li a.active {
+    background-color: #007bff; /* Cor de fundo do link ativo */
+    border-radius: 5px; /* Arredonda as bordas */
+  }
+  

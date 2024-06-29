@@ -1,0 +1,190 @@
+/* Estilo geral para o corpo da página */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilo para o container principal com display flex */
+.flex {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+/* Estilo para cada caixa (box) dos componentes */
+.box {
+  width: 300px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-right: 3px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+.box:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.mesas-container{
+  width: 50%;
+}
+
+/* Estilo para o título de cada seção */
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #333333;
+}
+
+/* Estilo para os inputs e botões dentro do form */
+.adicionar-pedido-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.adicionar-pedido-container input,
+.adicionar-pedido-container button {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.adicionar-pedido-container input:focus,
+.adicionar-pedido-container button:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.adicionar-pedido-container button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.adicionar-pedido-container button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo para a lista de pedidos */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  padding: 8px;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+/* Estilo para o botão de remover pedido */
+ul li button {
+  background-color: #dc3545;
+  color: #ffffff;
+  border: none;
+  margin-left: 5px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+ul li button:hover {
+  background-color: #c82333;
+}
+
+/* Estilo para o relatório de pedidos */
+.relatorio-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.relatorio-mesa {
+  margin-top: 20px;
+}
+
+.relatorio-mesa h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #333333;
+}
+
+.relatorio-mesa ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.relatorio-mesa ul li {
+  padding: 8px;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+/* Estilo para a seleção de mesas */
+.juntar-mesas-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.juntar-mesas-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #333333;
+}
+
+.juntar-mesas-container div {
+  margin-bottom: 20px;
+}
+
+.juntar-mesas-container h4 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333333;
+}
+
+.juntar-mesas-container select,
+.juntar-mesas-container button {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.juntar-mesas-container select:focus,
+.juntar-mesas-container button:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.juntar-mesas-container button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.juntar-mesas-container button:hover {
+  background-color: #0056b3;
+}
