@@ -46,6 +46,21 @@ const GerenciamentoMesas = () => {
     );
   };
 
+  const fecharMesa = (mesaId) => {
+    setMesas(prevMesas => {
+      const mesaIndex = prevMesas.findIndex(mesa => mesa.id === mesaId);
+      if (mesaIndex === -1) return prevMesas;
+
+      const mesa = prevMesas[mesaIndex];
+      setHistoricoPedidos(prevHistorico => [...prevHistorico, ...mesa.pedidos]);
+
+      const mesasAtualizadas = [...prevMesas];
+      mesasAtualizadas[mesaIndex] = { ...mesa, pedidos: [] };
+
+      return mesasAtualizadas;
+    });
+  };
+
   const juntarMesas = (mesa1Id, mesa2Id) => {
     setMesas(prevMesas => {
       const mesa1Index = prevMesas.findIndex(mesa => mesa.id === mesa1Id);
@@ -96,6 +111,7 @@ const GerenciamentoMesas = () => {
             mesa={mesa}
             adicionarPedido={adicionarPedido}
             removerPedido={removerPedido}
+            fecharMesa={fecharMesa} // Passando a função fecharMesa para o componente Mesa
           />
         ))}
       </div>

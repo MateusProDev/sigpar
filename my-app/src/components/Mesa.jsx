@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Mesa = ({ mesa, adicionarPedido, removerPedido }) => {
+const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
   const [novoPedido, setNovoPedido] = useState('');
   const [valorPedido, setValorPedido] = useState('');
 
@@ -16,6 +16,10 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido }) => {
 
   const handleRemoverPedido = (pedidoIndex) => {
     removerPedido(mesa.id, pedidoIndex);
+  };
+
+  const handleFecharMesa = () => {
+    fecharMesa(mesa.id);
   };
 
   return (
@@ -44,6 +48,7 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido }) => {
         />
         <button onClick={handleAddPedido}>Adicionar Pedido</button>
       </div>
+      <button onClick={handleFecharMesa}>Fechar Mesa</button>
     </div>
   );
 };
