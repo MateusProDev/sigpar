@@ -13,7 +13,7 @@ const NavBar = () => {
           <Link to="/juntarmesasrelatorio">Gerenciar Mesas</Link>
         </li>
         <li>
-          <Link to="/RelatorioMesas">Relatorio</Link>
+          <Link to="/RelatorioMensal">Relatorio Mensal</Link>
         </li>
       </ul>
     </nav>

@@ -5,7 +5,7 @@ const Home = () => (
   <div className="home-container">
     <div>
       <div className="header">
-        <img src='#' alt="Logo do Sistema" className="logo" />
+        <img src='./img/Restaurant.png' alt="Logo do Sistema" className="logo" />
         <h2>Sistema de Gerenciamento de Mesas</h2>
       </div>
       <div className="content">

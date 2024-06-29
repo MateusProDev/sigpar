@@ -14,9 +14,18 @@ const GerenciamentoMesas = () => {
     return savedMesas ? JSON.parse(savedMesas) : initialMesas;
   });
 
+  const [historicoPedidos, setHistoricoPedidos] = useState(() => {
+    const savedHistorico = localStorage.getItem('historicoPedidos');
+    return savedHistorico ? JSON.parse(savedHistorico) : [];
+  });
+
   useEffect(() => {
     localStorage.setItem('mesas', JSON.stringify(mesas));
   }, [mesas]);
+
+  useEffect(() => {
+    localStorage.setItem('historicoPedidos', JSON.stringify(historicoPedidos));
+  }, [historicoPedidos]);
 
   const adicionarPedido = (mesaId, pedido) => {
     setMesas(prevMesas =>
@@ -24,8 +33,9 @@ const GerenciamentoMesas = () => {
         mesa.id === mesaId ? { ...mesa, pedidos: [...mesa.pedidos, pedido] } : mesa
       )
     );
+    setHistoricoPedidos(prevHistorico => [...prevHistorico, pedido]);
   };
-  
+
   const removerPedido = (mesaId, pedidoIndex) => {
     setMesas(prevMesas =>
       prevMesas.map(mesa =>
@@ -46,14 +56,12 @@ const GerenciamentoMesas = () => {
       const mesa1 = mesasAtualizadas[mesa1Index];
       const mesa2 = mesasAtualizadas[mesa2Index];
 
-      // Criando nova mesa para representar a junção no relatório
       const novaMesa = {
-        id: mesa1.id, // Pode ser uma escolha de como representar a mesa combinada
+        id: mesa1.id,
         pedidos: [...mesa1.pedidos, ...mesa2.pedidos],
         mesasJuntas: [mesa1.id, mesa2.id]
       };
 
-      // Atualizando a mesa 1 para refletir a junção no relatório
       mesasAtualizadas[mesa1Index] = novaMesa;
 
       return mesasAtualizadas;
@@ -66,13 +74,12 @@ const GerenciamentoMesas = () => {
       if (mesa1Index === -1) return prevMesas;
 
       const mesa1 = prevMesas[mesa1Index];
-      if (!mesa1.mesasJuntas) return prevMesas; // Se não estiver juntada, retornar mesas sem alterações
+      if (!mesa1.mesasJuntas) return prevMesas;
 
-      // Separando mesas
       const mesasSeparadas = [...prevMesas];
       mesasSeparadas[mesa1Index] = {
         ...mesa1,
-        pedidos: mesa1.pedidos.filter(pedido => !mesa1.pedidos.includes(pedido)), // Exemplo de filtro, ajustar conforme necessário
+        pedidos: mesa1.pedidos.filter(pedido => !mesa1.pedidos.includes(pedido)),
         mesasJuntas: null
       };
 
