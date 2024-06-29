@@ -38,7 +38,7 @@ const Relatorio = ({ mesas }) => {
 
   return (
     <div className="relatorio-container">
-      <h2>Relatório de Pedidos</h2>
+      <h2>Pedidos Recentes</h2>
       <p>Total Geral: R${totalGeral.toFixed(2)}</p>
 
       {/* Renderiza o relatório para mesas individuais */}

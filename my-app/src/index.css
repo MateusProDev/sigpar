@@ -35,7 +35,7 @@ body {
 
 /* Estilo para o título de cada seção */
 h2 {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   margin-bottom: 15px;
   color: #333333;
 }
@@ -50,7 +50,7 @@ h2 {
 
 .adicionar-pedido-container input,
 .adicionar-pedido-container button {
-  padding: 10px;
+  padding: 5px;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -102,7 +102,7 @@ ul li button {
 }
 
 ul li button:hover {
-  background-color: #c82333;
+  background-color: #8b000e;
 }
 
 /* Estilo para o relatório de pedidos */
@@ -164,8 +164,8 @@ ul li button:hover {
 
 .juntar-mesas-container select,
 .juntar-mesas-container button {
-  padding: 10px;
-  font-size: 1rem;
+  padding: 8px;
+  font-size: 0.8rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   transition: border-color 0.3s ease;
@@ -183,6 +183,7 @@ ul li button:hover {
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin: 5px;
 }
 
 .juntar-mesas-container button:hover {
