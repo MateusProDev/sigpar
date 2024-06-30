@@ -1,12 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 import { Container, Grid, Paper, Typography, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import 'chartjs-adapter-date-fns';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
-// Registrar escalas e elementos do Chart.js
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+// Registrando a escala de categoria e outros componentes necessários
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const ContainerStyled = styled(Container)(({ theme }) => ({
   padding: theme.spacing(4),

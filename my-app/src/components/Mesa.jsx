@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import cardapio from './data/cardapio.json';  // Importe o JSON com os produtos do cardápio
+import cardapio from './data/cardapio.json';
 import '../index.css';
 
 const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
@@ -36,6 +36,7 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
 
   const handleFecharMesa = () => {
     if (window.confirm('Você tem certeza que deseja fechar a mesa?')) {
+      fecharMesa(mesa.id);
       setShowNotaFiscal(true);
     }
   };
@@ -102,17 +103,12 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
         />
         <button onClick={handleAddPedido}>Adicionar Pedido</button>
       </div>
-      <div className="mesa-buttons">
-        <button onClick={handleFecharMesa}>Fechar Mesa</button>
-        {showNotaFiscal && (
-          <button onClick={handlePrintNotaFiscal}>Imprimir Nota Fiscal</button>
-        )}
-      </div>
+      <button className="fechar-mesa" onClick={handleFecharMesa}>Fechar Mesa</button>
 
       {showNotaFiscal && (
         <div id={`nota-fiscal-${mesa.id}`} className="nota-fiscal">
-          <h2>Nota Fiscal - Mesa {mesa.id}</h2>
-          <p><strong>Data e Hora:</strong> {getCurrentDateTime()}</p>
+          <h2>Nota Fiscal</h2>
+          <p>Mesa {mesa.id}</p>
           <ul>
             {mesa.pedidos.map((pedido, index) => (
               <li key={index}>
@@ -123,6 +119,8 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
           <div className="total-mesa">
             <strong>Total da Mesa:</strong> R${calcularTotalMesa()}
           </div>
+          <p>Data: {getCurrentDateTime()}</p>
+          <button onClick={handlePrintNotaFiscal}>Imprimir Nota Fiscal</button>
         </div>
       )}
     </div>

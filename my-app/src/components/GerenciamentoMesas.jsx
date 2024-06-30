@@ -33,7 +33,10 @@ const GerenciamentoMesas = () => {
         mesa.id === mesaId ? { ...mesa, pedidos: [...mesa.pedidos, pedido] } : mesa
       )
     );
-    setHistoricoPedidos(prevHistorico => [...prevHistorico, pedido]);
+    setHistoricoPedidos(prevHistorico => [
+      ...prevHistorico,
+      { ...pedido, data: new Date().toISOString() }
+    ]);
   };
 
   const removerPedido = (mesaId, pedidoIndex) => {
@@ -52,7 +55,10 @@ const GerenciamentoMesas = () => {
       if (mesaIndex === -1) return prevMesas;
 
       const mesa = prevMesas[mesaIndex];
-      setHistoricoPedidos(prevHistorico => [...prevHistorico, ...mesa.pedidos]);
+      setHistoricoPedidos(prevHistorico => [
+        ...prevHistorico,
+        ...mesa.pedidos.map(pedido => ({ ...pedido, data: new Date().toISOString() }))
+      ]);
 
       const mesasAtualizadas = [...prevMesas];
       mesasAtualizadas[mesaIndex] = { ...mesa, pedidos: [] };
