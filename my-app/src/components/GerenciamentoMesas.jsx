@@ -3,7 +3,7 @@ import Mesa from './Mesa';
 import JuntarMesas from './JuntarMesas';
 import Relatorio from './Relatorio';
 
-const initialMesas = Array.from({ length: 16 }, (_, index) => ({
+const initialMesas = Array.from({ length: 15 }, (_, index) => ({
   id: index + 1,
   pedidos: []
 }));

@@ -91,6 +91,7 @@ ul li {
 
 /* Estilo para o botão de remover pedido */
 ul li button {
+  width: 80px;
   background-color: #dc3545;
   color: #ffffff;
   border: none;

@@ -5,10 +5,23 @@ const Relatorio = ({ mesas }) => {
     return <div>Carregando...</div>;
   }
 
+  // Cria um mapa para mesas juntas
+  const mesasJuntasMap = mesas.reduce((acc, mesa) => {
+    if (mesa.mesasJuntas) {
+      const chave = [mesa.id, ...mesa.mesasJuntas].sort((a, b) => a - b).join('-');
+      if (!acc[chave]) {
+        acc[chave] = { id: chave, mesas: [mesa] };
+      } else {
+        acc[chave].mesas.push(mesa);
+      }
+    }
+    return acc;
+  }, {});
+
+  const mesasJuntas = Object.values(mesasJuntasMap);
+
   // Filtra apenas as mesas que não estão juntas com outras
   const mesasIndividuais = mesas.filter(mesa => !mesa.mesasJuntas);
-  // Filtra apenas as mesas que estão juntas com outras
-  const mesasJuntas = mesas.filter(mesa => mesa.mesasJuntas);
 
   const gerarRelatorio = (mesas) => {
     const todosPedidos = mesas.flatMap(mesa => mesa.pedidos);
@@ -50,10 +63,10 @@ const Relatorio = ({ mesas }) => {
       ))}
 
       {/* Renderiza o relatório para mesas juntas */}
-      {mesasJuntas.map(mesa => (
-        <div key={mesa.id} className="relatorio-mesa">
-          <h3>Mesas {mesa.id} e {mesa.mesasJuntas.join(' e ')}</h3>
-          {gerarRelatorio([mesa, ...mesas.filter(m => mesa.mesasJuntas.includes(m.id))])}
+      {mesasJuntas.map(grupo => (
+        <div key={grupo.id} className="relatorio-mesa">
+          <h3>Mesas {grupo.id.split('-').join(' e ')}</h3>
+          {gerarRelatorio(grupo.mesas)}
         </div>
       ))}
     </div>
