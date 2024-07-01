@@ -7,6 +7,8 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
   const [valorPedido, setValorPedido] = useState('');
   const [produtosFiltrados, setProdutosFiltrados] = useState([]);
   const [showNotaFiscal, setShowNotaFiscal] = useState(false);
+  const [notaFiscal, setNotaFiscal] = useState([]);
+  const [totalNotaFiscal, setTotalNotaFiscal] = useState(0);
 
   useEffect(() => {
     if (novoPedido.trim()) {
@@ -37,17 +39,28 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
   const handleFecharMesa = () => {
     if (window.confirm('Você tem certeza que deseja fechar a mesa?')) {
       fecharMesa(mesa.id);
-      setShowNotaFiscal(true);
+      setShowNotaFiscal(false);
     }
+  };
+
+  const handleShowNotaFiscal = () => {
+    const pedidosNotaFiscal = [...mesa.pedidos];
+    const total = pedidosNotaFiscal.reduce((acc, pedido) => acc + pedido.valor, 0).toFixed(2);
+    setNotaFiscal(pedidosNotaFiscal);
+    setTotalNotaFiscal(total); // Salvando o total da nota fiscal
+    setShowNotaFiscal(true); // Mostra a nota fiscal
   };
 
   const handlePrintNotaFiscal = () => {
     const printContents = document.getElementById(`nota-fiscal-${mesa.id}`).innerHTML;
     const originalContents = document.body.innerHTML;
+
     document.body.innerHTML = printContents;
     window.print();
     document.body.innerHTML = originalContents;
-    window.location.reload();
+
+    // Após a impressão, fechar a nota fiscal
+    setShowNotaFiscal(false);
   };
 
   const handleProdutoSelecionado = (produto) => {
@@ -102,29 +115,35 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
           onChange={(e) => setValorPedido(e.target.value)}
         />
         <button onClick={handleAddPedido}>Adicionar Pedido</button>
-      </div>
-      <button className="fechar-mesa" onClick={handleFecharMesa}>Fechar Mesa</button>
+</div>
+<button className="fechar-mesa" onClick={handleShowNotaFiscal}>
+  Mostrar Nota Fiscal
+</button>
 
-      {showNotaFiscal && (
-        <div id={`nota-fiscal-${mesa.id}`} className="nota-fiscal">
-          <h2>Nota Fiscal</h2>
-          <p>Mesa {mesa.id}</p>
-          <ul>
-            {mesa.pedidos.map((pedido, index) => (
-              <li key={index}>
-                {pedido.nome} - R${pedido.valor.toFixed(2)}
-              </li>
-            ))}
-          </ul>
-          <div className="total-mesa">
-            <strong>Total da Mesa:</strong> R${calcularTotalMesa()}
-          </div>
-          <p>Data: {getCurrentDateTime()}</p>
-          <button onClick={handlePrintNotaFiscal}>Imprimir Nota Fiscal</button>
-        </div>
-      )}
+{showNotaFiscal && (
+  <div id={`nota-fiscal-${mesa.id}`} className="nota-fiscal">
+    <h2>Nota Fiscal</h2>
+    <p>Mesa {mesa.id}</p>
+    <ul>
+      {notaFiscal.map((pedido, index) => (
+        <li key={index}>
+          {pedido.nome} - R${pedido.valor.toFixed(2)}
+        </li>
+      ))}
+    </ul>
+    <div className="total-mesa">
+      <strong>Total da Mesa:</strong> R${totalNotaFiscal}
     </div>
-  );
+    <p>Data: {getCurrentDateTime()}</p>
+    <button onClick={handlePrintNotaFiscal}>Imprimir Nota Fiscal</button>
+    <button className="fechar-mesa" onClick={handleFecharMesa}>
+      Fechar Mesa
+    </button>
+
+  </div>
+)}
+</div>
+);
 };
 
 export default Mesa;
