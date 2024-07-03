@@ -37,43 +37,32 @@ const GerenciamentoMesas = () => {
   }, [estoque]);
 
   const adicionarPedido = (mesaId, pedido) => {
-    const produtoEstoque = estoque.find(item => item.nome === pedido.nome);
-    if (produtoEstoque && produtoEstoque.quantidade > 0) {
-      setMesas(prevMesas =>
-        prevMesas.map(mesa =>
-          mesa.id === mesaId ? { ...mesa, pedidos: [...mesa.pedidos, pedido] } : mesa
-        )
-      );
-      setEstoque(prevEstoque =>
-        prevEstoque.map(item =>
-          item.nome === pedido.nome
-            ? { ...item, quantidade: item.quantidade - 1 }
-            : item
-        )
-      );
-      setHistoricoPedidos(prevHistorico => [
-        ...prevHistorico,
-        { ...pedido, data: new Date().toISOString() }
-      ]);
-    } else {
-      alert('Produto indisponível no estoque.');
-    }
+    setMesas(prevMesas =>
+      prevMesas.map(mesa =>
+        mesa.id === mesaId ? { ...mesa, pedidos: [...mesa.pedidos, pedido] } : mesa
+      )
+    );
+    setHistoricoPedidos(prevHistorico => [
+      ...prevHistorico,
+      { ...pedido, data: new Date().toISOString() }
+    ]);
+
+    // Decrementa a quantidade do item no estoque
+    setEstoque(prevEstoque =>
+      prevEstoque.map(item =>
+        item.nome === pedido.nome && item.quantidade > 0
+          ? { ...item, quantidade: item.quantidade - 1 }
+          : item
+      )
+    );
   };
 
   const removerPedido = (mesaId, pedidoIndex) => {
-    const pedidoRemovido = mesas.find(mesa => mesa.id === mesaId).pedidos[pedidoIndex];
     setMesas(prevMesas =>
       prevMesas.map(mesa =>
         mesa.id === mesaId ? {
           ...mesa, pedidos: mesa.pedidos.filter((_, index) => index !== pedidoIndex)
         } : mesa
-      )
-    );
-    setEstoque(prevEstoque =>
-      prevEstoque.map(item =>
-        item.nome === pedidoRemovido.nome
-          ? { ...item, quantidade: item.quantidade + 1 }
-          : item
       )
     );
   };

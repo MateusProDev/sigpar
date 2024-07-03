@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import cardapio from './data/cardapio.json';
 import '../index.css';
 
 const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
@@ -10,16 +9,29 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
   const [notaFiscal, setNotaFiscal] = useState([]);
   const [totalNotaFiscal, setTotalNotaFiscal] = useState(0);
 
+  const [cardapio, setCardapio] = useState(() => {
+    const savedCardapio = localStorage.getItem('cardapio');
+    return savedCardapio ? JSON.parse(savedCardapio) : [];
+  });
+
+  const [estoque, setEstoque] = useState(() => {
+    const savedEstoque = localStorage.getItem('estoque');
+    return savedEstoque ? JSON.parse(savedEstoque) : [];
+  });
+
   useEffect(() => {
     if (novoPedido.trim()) {
-      const filtrados = cardapio.filter(produto => 
+      const produtosCardapio = cardapio.filter(produto => 
         produto.nome.toLowerCase().includes(novoPedido.toLowerCase())
       );
-      setProdutosFiltrados(filtrados);
+      const produtosEstoque = estoque.filter(item =>
+        item.nome.toLowerCase().includes(novoPedido.toLowerCase())
+      );
+      setProdutosFiltrados([...produtosCardapio, ...produtosEstoque]);
     } else {
       setProdutosFiltrados([]);
     }
-  }, [novoPedido]);
+  }, [novoPedido, cardapio, estoque]);
 
   const handleAddPedido = () => {
     if (novoPedido.trim() && valorPedido) {
@@ -47,8 +59,8 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
     const pedidosNotaFiscal = [...mesa.pedidos];
     const total = pedidosNotaFiscal.reduce((acc, pedido) => acc + pedido.valor, 0).toFixed(2);
     setNotaFiscal(pedidosNotaFiscal);
-    setTotalNotaFiscal(total); // Salvando o total da nota fiscal
-    setShowNotaFiscal(true); // Mostra a nota fiscal
+    setTotalNotaFiscal(total);
+    setShowNotaFiscal(true);
   };
 
   const handlePrintNotaFiscal = () => {
@@ -59,7 +71,6 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
     window.print();
     document.body.innerHTML = originalContents;
 
-    // Após a impressão, fechar a nota fiscal
     setShowNotaFiscal(false);
   };
 
@@ -115,35 +126,34 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
           onChange={(e) => setValorPedido(e.target.value)}
         />
         <button onClick={handleAddPedido}>Adicionar Pedido</button>
-</div>
-<button className="fechar-mesa" onClick={handleShowNotaFiscal}>
-  Mostrar Nota Fiscal
-</button>
+      </div>
+      <button className="fechar-mesa" onClick={handleShowNotaFiscal}>
+        Mostrar Nota Fiscal
+      </button>
 
-{showNotaFiscal && (
-  <div id={`nota-fiscal-${mesa.id}`} className="nota-fiscal">
-    <h2>Nota Fiscal</h2>
-    <p>Mesa {mesa.id}</p>
-    <ul>
-      {notaFiscal.map((pedido, index) => (
-        <li key={index}>
-          {pedido.nome} - R${pedido.valor.toFixed(2)}
-        </li>
-      ))}
-    </ul>
-    <div className="total-mesa">
-      <strong>Total da Mesa:</strong> R${totalNotaFiscal}
+      {showNotaFiscal && (
+        <div id={`nota-fiscal-${mesa.id}`} className="nota-fiscal">
+          <h2>Nota Fiscal</h2>
+          <p>Mesa {mesa.id}</p>
+          <ul>
+            {notaFiscal.map((pedido, index) => (
+              <li key={index}>
+                {pedido.nome} - R${pedido.valor.toFixed(2)}
+              </li>
+            ))}
+          </ul>
+          <div className="total-mesa">
+            <strong>Total da Mesa:</strong> R${totalNotaFiscal}
+          </div>
+          <p>Data: {getCurrentDateTime()}</p>
+          <button onClick={handlePrintNotaFiscal}>Imprimir Nota Fiscal</button>
+          <button className="fechar-mesa" onClick={handleFecharMesa}>
+            Fechar Mesa
+          </button>
+        </div>
+      )}
     </div>
-    <p>Data: {getCurrentDateTime()}</p>
-    <button onClick={handlePrintNotaFiscal}>Imprimir Nota Fiscal</button>
-    <button className="fechar-mesa" onClick={handleFecharMesa}>
-      Fechar Mesa
-    </button>
-
-  </div>
-)}
-</div>
-);
+  );
 };
 
 export default Mesa;

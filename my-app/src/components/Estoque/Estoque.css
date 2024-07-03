@@ -1,0 +1,103 @@
+/* Estoque.css */
+
+.estoque-container {
+    background: #ffffff;
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+  }
+  
+  .estoque-title {
+    font-size: 2em;
+    color: #007bff;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    text-align: center;
+  }
+  
+  .input-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .input-field {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    transition: border-color 0.3s;
+  }
+  
+  .input-field:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .add-button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .add-button:hover {
+    background: #0056b3;
+  }
+  
+  .item-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .item {
+    background: #f9f9f9;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .input-quantidade {
+    width: 150px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: border-color 0.3s;
+  }
+  
+  .input-quantidade:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .remove-button {
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .remove-button:hover {
+    background: #c82333;
+  }
+  
