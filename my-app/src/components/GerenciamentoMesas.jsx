@@ -19,6 +19,11 @@ const GerenciamentoMesas = () => {
     return savedHistorico ? JSON.parse(savedHistorico) : [];
   });
 
+  const [estoque, setEstoque] = useState(() => {
+    const savedEstoque = localStorage.getItem('estoque');
+    return savedEstoque ? JSON.parse(savedEstoque) : [];
+  });
+
   useEffect(() => {
     localStorage.setItem('mesas', JSON.stringify(mesas));
   }, [mesas]);
@@ -27,24 +32,48 @@ const GerenciamentoMesas = () => {
     localStorage.setItem('historicoPedidos', JSON.stringify(historicoPedidos));
   }, [historicoPedidos]);
 
+  useEffect(() => {
+    localStorage.setItem('estoque', JSON.stringify(estoque));
+  }, [estoque]);
+
   const adicionarPedido = (mesaId, pedido) => {
-    setMesas(prevMesas =>
-      prevMesas.map(mesa =>
-        mesa.id === mesaId ? { ...mesa, pedidos: [...mesa.pedidos, pedido] } : mesa
-      )
-    );
-    setHistoricoPedidos(prevHistorico => [
-      ...prevHistorico,
-      { ...pedido, data: new Date().toISOString() }
-    ]);
+    const produtoEstoque = estoque.find(item => item.nome === pedido.nome);
+    if (produtoEstoque && produtoEstoque.quantidade > 0) {
+      setMesas(prevMesas =>
+        prevMesas.map(mesa =>
+          mesa.id === mesaId ? { ...mesa, pedidos: [...mesa.pedidos, pedido] } : mesa
+        )
+      );
+      setEstoque(prevEstoque =>
+        prevEstoque.map(item =>
+          item.nome === pedido.nome
+            ? { ...item, quantidade: item.quantidade - 1 }
+            : item
+        )
+      );
+      setHistoricoPedidos(prevHistorico => [
+        ...prevHistorico,
+        { ...pedido, data: new Date().toISOString() }
+      ]);
+    } else {
+      alert('Produto indisponível no estoque.');
+    }
   };
 
   const removerPedido = (mesaId, pedidoIndex) => {
+    const pedidoRemovido = mesas.find(mesa => mesa.id === mesaId).pedidos[pedidoIndex];
     setMesas(prevMesas =>
       prevMesas.map(mesa =>
         mesa.id === mesaId ? {
           ...mesa, pedidos: mesa.pedidos.filter((_, index) => index !== pedidoIndex)
         } : mesa
+      )
+    );
+    setEstoque(prevEstoque =>
+      prevEstoque.map(item =>
+        item.nome === pedidoRemovido.nome
+          ? { ...item, quantidade: item.quantidade + 1 }
+          : item
       )
     );
   };
@@ -117,7 +146,7 @@ const GerenciamentoMesas = () => {
             mesa={mesa}
             adicionarPedido={adicionarPedido}
             removerPedido={removerPedido}
-            fecharMesa={fecharMesa} // Passando a função fecharMesa para o componente Mesa
+            fecharMesa={fecharMesa}
           />
         ))}
       </div>

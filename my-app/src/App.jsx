@@ -6,6 +6,7 @@ import JuntarMesasRelatorio from './components/JuntarMesasRelatorio';
 import RelatorioMensal from './components/RelatorioMensal';
 import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute';
+import Estoque from './components/Estoque'; // Importe o novo componente
 import './index.css';
 
 const App = () => {
@@ -29,6 +30,14 @@ const App = () => {
             element={
               <PrivateRoute>
                 <RelatorioMensal />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/estoque"
+            element={
+              <PrivateRoute>
+                <Estoque /> {/* Nova rota para o estoque */}
               </PrivateRoute>
             }
           />

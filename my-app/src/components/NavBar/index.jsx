@@ -10,10 +10,13 @@ const NavBar = () => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/juntarmesasrelatorio">Gerenciar Mesas</Link>
+          <Link to="/juntarmesasrelatorio">Mesas</Link>
         </li>
         <li>
-          <Link to="/RelatorioMensal">Relatorio Mensal</Link>
+          <Link to="/RelatorioMensal">Relatorio</Link>
+        </li>
+        <li>
+          <Link to="/Estoque">Estoque</Link>
         </li>
       </ul>
     </nav>
