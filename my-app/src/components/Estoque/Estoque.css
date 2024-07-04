@@ -1,94 +1,197 @@
 /* Estoque.css */
-.estoque-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #f0f0f0;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  body {
+    background-color: #f4f4f4;
     color: #333;
   }
   
-  .estoque-container h2 {
-    color: #007bff;
-  }
-  
-  .estoque-section {
-    width: 100%;
-    max-width: 800px;
-    background-color: white;
-    padding: 20px 40px;
-    margin-bottom: 20px;
-    border-radius: 8px;
+  .estoque-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .estoque-section h3 {
-    color: #007bff;
-    margin-bottom: 10px;
-  }
-  .sections-container{
-    display: flex;
-    gap: 20px;
-  }
-  .input-group {
+  .sidebar {
+    width: 300px;
+    padding: 20px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    justify-content: space-between;
+  }
+  
+  .sidebar h3 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .input-group {
+    margin-bottom: 15px;
   }
   
   .input-group label {
+    display: block;
     margin-bottom: 5px;
   }
   
-  .input-group input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .button-group {
-    display: flex;
-    gap: 10px;
-  }
-  
-  button {
-    padding: 10px 20px;
+  .input-group input,
+  .input-group select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
     border: none;
     border-radius: 4px;
-    background-color: #007bff;
-    color: white;
+  }
+  
+  .input-group input:focus,
+  .input-group select:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(41, 128, 185, 0.5);
+  }
+  
+  .button {
+    width: 100%;
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
   }
   
-  button:hover {
-    background-color: #0056b3;
+  .button:hover {
+    background-color: #2980b9;
   }
   
-  .item-list {
-    margin-top: 20px;
-  }
-  
-  .item-list ul {
+  .lista-classes ul {
     list-style: none;
     padding: 0;
   }
   
-  .item-list li {
+  .lista-classes li {
+    background-color: #34495e;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+  }
+  
+  .main-content {
+    flex-grow: 1;
+    padding: 20px;
+  }
+  
+  .main-content h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #2980b9;
+  }
+  
+  .sections-container {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .estoque-section {
+    width: 45%;
+    padding: 20px;
+    background-color: #ecf0f1;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .estoque-section h3 {
+    margin-bottom: 20px;
+    color: #2980b9;
+  }
+  
+  .item-list {
+    margin-bottom: 20px;
+  }
+  
+  .item-list h4 {
+    margin-bottom: 10px;
+    color: #2980b9;
+  }
+  
+  .item-classe-section {
+    margin-bottom: 20px;
+  }
+  
+  .item-classe-section h3 {
+    margin-bottom: 10px;
+    color: #3498db;
+  }
+  
+  .item-classe-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .item-classe-section li {
+    background-color: #fff;
     padding: 10px;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .item-list li:last-child {
-    border-bottom: none;
-  }
-  
-  .quantity-input {
-    width: 50px;
-    text-align: center;
-  }
-  .item-actions{
+    margin-bottom: 10px;
+    border-radius: 4px;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
+  
+  .item-classe-section li .item-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .item-actions button {
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .item-actions button:hover {
+    background-color: #c0392b;
+  }
+  
+  .item-actions button:first-child {
+    background-color: #2ecc71;
+  }
+  
+  .item-actions button:first-child:hover {
+    background-color: #27ae60;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .estoque-container {
+      flex-direction: column;
+    }
+  
+    .sidebar {
+      width: 100%;
+    }
+  
+    .sections-container {
+      flex-direction: column;
+    }
+  
+    .estoque-section {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+  
