@@ -72,6 +72,7 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
     document.body.innerHTML = originalContents;
 
     setShowNotaFiscal(false);
+    window.location.reload(); // Adiciona um recarregamento da página para restaurar o estado
   };
 
   const handleProdutoSelecionado = (produto) => {
@@ -130,6 +131,9 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
       <button className="fechar-mesa" onClick={handleShowNotaFiscal}>
         Mostrar Nota Fiscal
       </button>
+      <button className="fechar-mesa" onClick={handleFecharMesa}>
+        Fechar Mesa
+      </button>
 
       {showNotaFiscal && (
         <div id={`nota-fiscal-${mesa.id}`} className="nota-fiscal">
@@ -147,9 +151,7 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
           </div>
           <p>Data: {getCurrentDateTime()}</p>
           <button onClick={handlePrintNotaFiscal}>Imprimir Nota Fiscal</button>
-          <button className="fechar-mesa" onClick={handleFecharMesa}>
-            Fechar Mesa
-          </button>
+          
         </div>
       )}
     </div>

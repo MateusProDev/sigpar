@@ -13,10 +13,10 @@ const NavBar = () => {
           <Link to="/juntarmesasrelatorio">Mesas</Link>
         </li>
         <li>
-          <Link to="/RelatorioMensal">Relatorio</Link>
+          <Link to="/Estoque">Estoque</Link>
         </li>
         <li>
-          <Link to="/Estoque">Estoque</Link>
+          <Link to="/RelatorioMensal">Relatorio</Link>
         </li>
       </ul>
     </nav>

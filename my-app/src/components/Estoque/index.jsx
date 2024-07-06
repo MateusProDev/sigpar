@@ -21,6 +21,7 @@ const Estoque = () => {
   });
 
   const [novaClasse, setNovaClasse] = useState('');
+  const [editandoClasse, setEditandoClasse] = useState(null);
   const [novoProduto, setNovoProduto] = useState('');
   const [novoValorProduto, setNovoValorProduto] = useState('');
   const [novoItemEstoque, setNovoItemEstoque] = useState('');
@@ -64,6 +65,25 @@ const Estoque = () => {
     } else {
       toast.error('Classe já existente ou inválida.');
     }
+  };
+
+  const editarClasse = (classe) => {
+    setNovaClasse(classe);
+    setEditandoClasse(classe);
+  };
+
+  const atualizarClasse = () => {
+    if (novaClasse.trim() && !classes.includes(novaClasse.trim())) {
+      setClasses(classes.map(classe => (classe === editandoClasse ? novaClasse.trim() : classe)));
+      setNovaClasse('');
+      setEditandoClasse(null);
+    } else {
+      toast.error('Classe já existente ou inválida.');
+    }
+  };
+
+  const removerClasse = (classe) => {
+    setClasses(classes.filter(c => c !== classe));
   };
 
   const adicionarAoCardapio = () => {
@@ -128,7 +148,7 @@ const Estoque = () => {
               <div className="item-actions">
                 {item.quantidade && (
                   <>
-                    <button onClick={() => aumentarQuantidade(item.id)}>Adicionar Quantidade</button>
+                    <button onClick={() => aumentarQuantidade(item.id)}>Adicionar</button>
                     <button onClick={() => removerItemEstoque(item.id)}>Remover</button>
                   </>
                 )}
@@ -154,13 +174,23 @@ const Estoque = () => {
             value={novaClasse}
             onChange={(e) => setNovaClasse(e.target.value)}
           />
-          <button onClick={adicionarClasse}><FaPlus /> Adicionar Classe</button>
+          {editandoClasse ? (
+            <button onClick={atualizarClasse}><FaEdit /> Atualizar Classe</button>
+          ) : (
+            <button onClick={adicionarClasse}><FaPlus /> Adicionar Classe</button>
+          )}
         </div>
         <div className="lista-classes">
           <h4>Classes Existentes</h4>
           <ul>
             {classes.map(classe => (
-              <li key={classe}>{classe}</li>
+              <li key={classe}>
+                {classe}
+                <div className="classe-actions">
+                  <button onClick={() => editarClasse(classe)}><FaEdit /></button>
+                  <button onClick={() => removerClasse(classe)}><FaTrash /></button>
+                </div>
+              </li>
             ))}
           </ul>
         </div>
@@ -169,6 +199,7 @@ const Estoque = () => {
       <main className="main-content">
         <h2>Gerenciamento de Estoque</h2>
         <div className="sections-container">
+          <div className='boxs-estoque'>
           <div className="estoque-section">
             <h3>Adicionar Produto ao Cardápio Fixo</h3>
             <div className="input-group">
@@ -229,7 +260,7 @@ const Estoque = () => {
               />
             </div>
             <div className="input-group">
-              <label>Classe do Produto:</label>
+              <label>Classe do Item:</label>
               <select
                 value={novaClasseItem}
                 onChange={(e) => setNovaClasseItem(e.target.value)}
@@ -240,21 +271,21 @@ const Estoque = () => {
                 ))}
               </select>
             </div>
-            <button onClick={adicionarAoEstoque}><FaPlus /> Adicionar ao Estoque</button>
+            <button onClick={adicionarAoEstoque}><FaPlus /> Adicionar </button>
+          </div>
+          </div>
+
+          <div className="estoque-itens">
+            <h2>Estoque</h2>
+            {renderizarItensPorClasse(estoque)}
+          </div>
+
+          <div className="cardapio-itens">
+            <h2>Cardápio</h2>
+            {renderizarItensPorClasse(cardapio)}
           </div>
         </div>
-
-        <div className="item-list">
-          <h4>Cardápio Fixo</h4>
-          {renderizarItensPorClasse(cardapio)}
-        </div>
-
-        <div className="item-list">
-          <h4>Itens em Estoque</h4>
-          {renderizarItensPorClasse(estoque)}
-        </div>
       </main>
-
       <ToastContainer />
     </div>
   );

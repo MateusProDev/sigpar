@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <link rel="icon" href="../img/Restaurant.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#007bff" /> <!-- Definindo a cor do tema para mobile -->
+    <meta name="theme-color" content="#ff1100" /> <!-- Definindo a cor do tema para mobile -->
     <meta
       name="description"
       content="Web site created using create-react-app"
@@ -21,7 +21,7 @@
 
       /* Barra colorida fixa no topo da página */
       .top-bar {
-        background-color: #007bff; /* Cor desejada */
+        background-color: #ff1100; /* Cor desejada */
         height: 4px; /* Altura da barra */
         width: 100%;
         position: fixed;
@@ -32,7 +32,7 @@
 
       /* Estilizando a tag <title> para destacar no navegador */
       title {
-        color: #007bff;
+        color: #ff1100;
         font-size: 24px;
         font-weight: bold;
       }
@@ -65,7 +65,7 @@
   </head>
   <body>
     <div class="top-bar"></div>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>Sistema de Gerenciamento para restaurantes</noscript>
     <div id="root"></div>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
@@ -73,7 +73,7 @@
         if (window.matchMedia('(prefers-color-scheme)').media !== 'not all') {
           let metaThemeColor = document.querySelector("meta[name=theme-color]");
           if (metaThemeColor) {
-            metaThemeColor.setAttribute("content", "#007bff");
+            metaThemeColor.setAttribute("content", "#ff1100");
           }
         }
       });

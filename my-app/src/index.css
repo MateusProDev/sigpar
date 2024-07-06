@@ -32,12 +32,15 @@ body {
 .mesas-container{
   width: 50%;
 }
-
+.fechar-mesa{
+  margin-top: 5px;
+  background-color: #e49c01;
+}
 /* Estilo para o título de cada seção */
 h2 {
   font-size: 1.7rem;
   margin-bottom: 15px;
-  color: #333333;
+  color: #e49c01;
 }
 
 /* Estilo para os inputs e botões dentro do form */
@@ -60,11 +63,11 @@ h2 {
 .adicionar-pedido-container input:focus,
 .adicionar-pedido-container button:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #e49c01;
 }
 
 .adicionar-pedido-container button {
-  background-color: #007bff;
+  background-color: #00d150;
   color: #ffffff;
   border: none;
   cursor: pointer;
@@ -72,7 +75,7 @@ h2 {
 }
 
 .adicionar-pedido-container button:hover {
-  background-color: #0056b3;
+  background-color: #009439;
 }
 
 /* Estilo para a lista de pedidos */
@@ -122,7 +125,7 @@ ul li button:hover {
 .relatorio-mesa h3 {
   font-size: 1.5rem;
   margin-bottom: 10px;
-  color: #333333;
+  color: #e49c01;
 }
 
 .relatorio-mesa ul {
@@ -150,7 +153,7 @@ ul li button:hover {
 .juntar-mesas-container h2 {
   font-size: 1.8rem;
   margin-bottom: 15px;
-  color: #333333;
+  color: #e49c01;
 }
 
 .juntar-mesas-container div {
@@ -160,7 +163,7 @@ ul li button:hover {
 .juntar-mesas-container h4 {
   font-size: 1.2rem;
   margin-bottom: 10px;
-  color: #333333;
+  color: #e49c01;
 }
 
 .juntar-mesas-container select,
@@ -175,11 +178,11 @@ ul li button:hover {
 .juntar-mesas-container select:focus,
 .juntar-mesas-container button:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #e49c01;
 }
 
 .juntar-mesas-container button {
-  background-color: #007bff;
+  background-color: #e49c01;
   color: #ffffff;
   border: none;
   cursor: pointer;
