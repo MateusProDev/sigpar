@@ -15,12 +15,12 @@ body {
 
 /* Estilo para cada caixa (box) dos componentes */
 .box {
-  width: 300px;
+  width: 350px;
   padding: 20px;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-right: 3px;
+  margin-right: 2px;
   overflow: hidden;
   transition: box-shadow 0.3s ease;
 }
@@ -39,7 +39,7 @@ body {
 /* Estilo para o título de cada seção */
 h2 {
   font-size: 1.7rem;
-  margin-bottom: 15px;
+  margin: 10px 0 0 10px;
   color: #e49c01;
 }
 

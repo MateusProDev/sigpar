@@ -4,7 +4,7 @@ import GerenciamentoMesas from './GerenciamentoMesas';
 
 const JuntarMesasRelatorio = () => (
   <div>
-    <h2>Gerenciamento de Mesas com Relatório</h2>
+    <h2>Gerenciamento de Mesas</h2>
     <GerenciamentoMesas />
   </div>
 );
