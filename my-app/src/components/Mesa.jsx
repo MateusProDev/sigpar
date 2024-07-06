@@ -9,12 +9,12 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
   const [notaFiscal, setNotaFiscal] = useState([]);
   const [totalNotaFiscal, setTotalNotaFiscal] = useState(0);
 
-  const [cardapio, setCardapio] = useState(() => {
+  const [cardapio] = useState(() => {
     const savedCardapio = localStorage.getItem('cardapio');
     return savedCardapio ? JSON.parse(savedCardapio) : [];
   });
 
-  const [estoque, setEstoque] = useState(() => {
+  const [estoque] = useState(() => {
     const savedEstoque = localStorage.getItem('estoque');
     return savedEstoque ? JSON.parse(savedEstoque) : [];
   });
@@ -64,6 +64,20 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
   };
 
   const handlePrintNotaFiscal = () => {
+    const pedidosNotaFiscal = [...mesa.pedidos];
+    const total = pedidosNotaFiscal.reduce((acc, pedido) => acc + pedido.valor, 0).toFixed(2);
+    const novaNotaFiscal = {
+      mesaId: mesa.id,
+      pedidos: pedidosNotaFiscal,
+      total: parseFloat(total),
+      data: new Date().toISOString()
+    };
+
+    const savedNotas = localStorage.getItem('notasFiscais');
+    const notas = savedNotas ? JSON.parse(savedNotas) : [];
+    notas.push(novaNotaFiscal);
+    localStorage.setItem('notasFiscais', JSON.stringify(notas));
+
     const printContents = document.getElementById(`nota-fiscal-${mesa.id}`).innerHTML;
     const originalContents = document.body.innerHTML;
 

@@ -18,6 +18,9 @@ const NavBar = () => {
         <li>
           <Link to="/RelatorioMensal">Relatorio</Link>
         </li>
+        <li>
+          <Link to="/NotasFiscais">C/ Fiscais</Link>
+        </li>
       </ul>
     </nav>
   );
