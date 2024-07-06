@@ -43,9 +43,10 @@ const NotasFiscais = () => {
           type="date"
           value={dataPesquisa}
           onChange={(e) => setDataPesquisa(e.target.value)}
+          className="input-pesquisa"
         />
-        <button onClick={handlePesquisar}>Pesquisar</button>
-        <button onClick={handleResetPesquisa}>Resetar Pesquisa</button>
+        <button onClick={handlePesquisar} className="btn-pesquisar">Pesquisar</button>
+        <button onClick={handleResetPesquisa} className="btn-resetar">Resetar Pesquisa</button>
       </div>
       <div className="resultados-pesquisa">
         {resultadosPesquisa.length > 0 ? (
