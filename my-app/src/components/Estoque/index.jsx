@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaPlus, FaTrash, FaEdit } from 'react-icons/fa';
+import { FaPlus, FaTrash, FaEdit, FaSearch } from 'react-icons/fa';
 import './Estoque.css';
 
 const Estoque = () => {
@@ -28,6 +28,7 @@ const Estoque = () => {
   const [novaQuantidade, setNovaQuantidade] = useState('');
   const [novoValorEstoque, setNovoValorEstoque] = useState('');
   const [novaClasseItem, setNovaClasseItem] = useState('');
+  const [pesquisa, setPesquisa] = useState('');
 
   const verificarEstoque = useCallback(() => {
     estoque.forEach(item => {
@@ -138,11 +139,12 @@ const Estoque = () => {
   };
 
   const renderizarItensPorClasse = (items) => {
+    const sortedItems = items.sort((a, b) => a.nome.localeCompare(b.nome));
     return classes.map(classe => (
       <div key={classe} className="item-classe-section">
         <h3>{classe}</h3>
         <ul>
-          {items.filter(item => item.classe === classe).map(item => (
+          {sortedItems.filter(item => item.classe === classe && item.nome.toLowerCase().includes(pesquisa.toLowerCase())).map(item => (
             <li key={item.id}>
               {item.nome} - {item.quantidade ? `${item.quantidade} unidades - ` : ''}R${item.valor.toFixed(2)} - Classe: {item.classe}
               <div className="item-actions">
@@ -199,89 +201,102 @@ const Estoque = () => {
       <main className="main-content">
         <h2>Gerenciamento de Estoque</h2>
         <div className="sections-container">
-          <div className='boxs-estoque'>
-          <div className="estoque-section">
-            <h3>Adicionar Produto ao Cardápio Fixo</h3>
-            <div className="input-group">
-              <label>Nome do Produto:</label>
-              <input
-                type="text"
-                value={novoProduto}
-                onChange={(e) => setNovoProduto(e.target.value)}
-              />
+          <div className="boxs-estoque">
+            <div className="estoque-section">
+              <h3>Adicionar Produto ao Cardápio Fixo</h3>
+              <div className="input-group">
+                <label>Nome do Produto:</label>
+                <input
+                  type="text"
+                  value={novoProduto}
+                  onChange={(e) => setNovoProduto(e.target.value)}
+                />
+              </div>
+              <div className="input-group">
+                <label>Valor do Produto:</label>
+                <input
+                  type="number"
+                  value={novoValorProduto}
+                  onChange={(e) => setNovoValorProduto(e.target.value)}
+                />
+              </div>
+              <div className="input-group">
+                <label>Classe do Produto:</label>
+                <select
+                  value={novaClasseItem}
+                  onChange={(e) => setNovaClasseItem(e.target.value)}
+                >
+                  <option value="">Selecione uma classe</option>
+                  {classes.map(classe => (
+                    <option key={classe} value={classe}>{classe}</option>
+                  ))}
+                </select>
+              </div>
+              <button onClick={adicionarAoCardapio}><FaPlus /> Adicionar ao Cardápio</button>
             </div>
-            <div className="input-group">
-              <label>Valor do Produto:</label>
-              <input
-                type="number"
-                value={novoValorProduto}
-                onChange={(e) => setNovoValorProduto(e.target.value)}
-              />
+
+            <div className="estoque-section">
+              <h3>Adicionar Item ao Estoque</h3>
+              <div className="input-group">
+                <label>Nome do Item:</label>
+                <input
+                  type="text"
+                  value={novoItemEstoque}
+                  onChange={(e) => setNovoItemEstoque(e.target.value)}
+                />
+              </div>
+              <div className="input-group">
+                <label>Quantidade:</label>
+                <input
+                  type="number"
+                  value={novaQuantidade}
+                  onChange={(e) => setNovaQuantidade(e.target.value)}
+                />
+              </div>
+              <div className="input-group">
+                <label>Valor Unitário:</label>
+                <input
+                  type="number"
+                  value={novoValorEstoque}
+                  onChange={(e) => setNovoValorEstoque(e.target.value)}
+                />
+              </div>
+              <div className="input-group">
+                <label>Classe do Item:</label>
+                <select
+                  value={novaClasseItem}
+                  onChange={(e) => setNovaClasseItem(e.target.value)}
+                >
+                  <option value="">Selecione uma classe</option>
+                  {classes.map(classe => (
+                    <option key={classe} value={classe}>{classe}</option>
+                  ))}
+                </select>
+              </div>
+              <button onClick={adicionarAoEstoque}><FaPlus /> Adicionar ao Estoque</button>
             </div>
-            <div className="input-group">
-              <label>Classe do Produto:</label>
-              <select
-                value={novaClasseItem}
-                onChange={(e) => setNovaClasseItem(e.target.value)}
-              >
-                <option value="">Selecione uma classe</option>
-                {classes.map(classe => (
-                  <option key={classe} value={classe}>{classe}</option>
-                ))}
-              </select>
-            </div>
-            <button onClick={adicionarAoCardapio}><FaPlus /> Adicionar ao Cardápio</button>
           </div>
 
-          <div className="estoque-section">
-            <h3>Adicionar Item ao Estoque</h3>
+          <div className="pesquisa-section">
+            <h3>Pesquisa de Itens</h3>
             <div className="input-group">
-              <label>Nome do Item:</label>
+              <label>Pesquisar:</label>
               <input
                 type="text"
-                value={novoItemEstoque}
-                onChange={(e) => setNovoItemEstoque(e.target.value)}
+                value={pesquisa}
+                onChange={(e) => setPesquisa(e.target.value)}
               />
+              <button><FaSearch /></button>
             </div>
-            <div className="input-group">
-              <label>Quantidade:</label>
-              <input
-                type="number"
-                value={novaQuantidade}
-                onChange={(e) => setNovaQuantidade(e.target.value)}
-              />
-            </div>
-            <div className="input-group">
-              <label>Valor:</label>
-              <input
-                type="number"
-                value={novoValorEstoque}
-                onChange={(e) => setNovoValorEstoque(e.target.value)}
-              />
-            </div>
-            <div className="input-group">
-              <label>Classe do Item:</label>
-              <select
-                value={novaClasseItem}
-                onChange={(e) => setNovaClasseItem(e.target.value)}
-              >
-                <option value="">Selecione uma classe</option>
-                {classes.map(classe => (
-                  <option key={classe} value={classe}>{classe}</option>
-                ))}
-              </select>
-            </div>
-            <button onClick={adicionarAoEstoque}><FaPlus /> Adicionar </button>
-          </div>
           </div>
 
-          <div className="estoque-itens">
-            <h2>Estoque</h2>
+          <div className="estoque-list">
+            <h3>Itens em Estoque</h3>
             {renderizarItensPorClasse(estoque)}
           </div>
 
-          <div className="cardapio-itens">
-            <h2>Cardápio</h2>
+          <div className="cardapio-list">
+            <h3>Cardápio Fixo</h3>
             {renderizarItensPorClasse(cardapio)}
           </div>
         </div>

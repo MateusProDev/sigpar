@@ -1,5 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Chart, LineElement, PointElement, LineController, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js';
+import { Line } from 'react-chartjs-2';
 import './NotasFiscais.css';
+
+// Registre os componentes necessários do Chart.js
+Chart.register(LineElement, PointElement, LineController, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
 const NotasFiscais = () => {
   const [notasFiscais, setNotasFiscais] = useState(() => {
@@ -9,6 +14,7 @@ const NotasFiscais = () => {
 
   const [dataPesquisa, setDataPesquisa] = useState('');
   const [resultadosPesquisa, setResultadosPesquisa] = useState([]);
+  const chartRef = useRef(null);
 
   useEffect(() => {
     localStorage.setItem('notasFiscais', JSON.stringify(notasFiscais));
@@ -33,6 +39,28 @@ const NotasFiscais = () => {
   const formatarData = (dataISO) => {
     const data = new Date(dataISO);
     return data.toLocaleDateString() + ' ' + data.toLocaleTimeString();
+  };
+
+  const contarNotasPorMes = () => {
+    const contagem = new Array(12).fill(0);
+    notasFiscais.forEach(nota => {
+      const mes = new Date(nota.data).getMonth();
+      contagem[mes]++;
+    });
+    return contagem;
+  };
+
+  const dadosGrafico = {
+    labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    datasets: [
+      {
+        label: 'Notas Fiscais Emitidas',
+        data: contarNotasPorMes(),
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(75,192,192,1)',
+        borderWidth: 1,
+      },
+    ],
   };
 
   return (
@@ -70,6 +98,10 @@ const NotasFiscais = () => {
         ) : (
           <p>Nenhuma nota fiscal encontrada para a data pesquisada.</p>
         )}
+      </div>
+      <div className="grafico-container">
+        <h2>Notas Fiscais Emitidas por Mês</h2>
+        <Line ref={chartRef} data={dadosGrafico} />
       </div>
     </div>
   );
