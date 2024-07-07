@@ -8,6 +8,7 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
   const [showNotaFiscal, setShowNotaFiscal] = useState(false);
   const [notaFiscal, setNotaFiscal] = useState([]);
   const [totalNotaFiscal, setTotalNotaFiscal] = useState(0);
+  
 
   const [cardapio] = useState(() => {
     const savedCardapio = localStorage.getItem('cardapio');
