@@ -95,16 +95,18 @@ const RelatorioGarcons = ({ notasFiscais }) => {
         <DatePicker selected={selectedDate} onChange={date => setSelectedDate(date)} dateFormat="dd/MM/yyyy" />
       </div>
 
-      {/* Gráfico de Vendas Diárias */}
-      <div className="vendas-diarias">
-        <h2>Vendas Diárias - {`${selectedDate.getDate()}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear()}`}</h2>
-        <Bar data={getDailyData()} />
-      </div>
+      <div className="flex-garcon">
+        {/* Gráfico de Vendas Diárias */}
+        <div className="vendas-diarias">
+          <h2>Vendas Diárias - {`${selectedDate.getDate()}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear()}`}</h2>
+          <Bar data={getDailyData()} />
+        </div>
 
-      {/* Gráfico de Vendas Mensais */}
-      <div className="vendas-mensais">
-        <h2>Vendas Mensais - {`${selectedDate.getMonth() + 1}/${selectedDate.getFullYear()}`}</h2>
-        <Bar data={getMonthlyData()} />
+        {/* Gráfico de Vendas Mensais */}
+        <div className="vendas-mensais">
+          <h2>Vendas Mensais - {`${selectedDate.getMonth() + 1}/${selectedDate.getFullYear()}`}</h2>
+          <Bar data={getMonthlyData()} />
+        </div>
       </div>
     </div>
   );
