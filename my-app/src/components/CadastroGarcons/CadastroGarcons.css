@@ -1,0 +1,88 @@
+.cadastro-garcons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.box-garcons {
+  width: 80%;
+  max-width: 600px;
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cadastro-garcons-form {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.cadastro-garcons-form input {
+  flex: 1;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.cadastro-garcons-form button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+}
+
+.cadastro-garcons-form button:hover {
+  background-color: #218838;
+}
+
+.garcons-list {
+  list-style: none;
+  padding: 0;
+}
+
+.garcons-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.garcons-list li button {
+  border: none;
+  background-color: #dc3545;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.garcons-list li button:hover {
+  background-color: #c82333;
+}
+
+.relatorio-garcons-container {
+  padding: 20px;
+}
+
+.vendas-diarias, .vendas-mensais, .vendas-pesquisa {
+  margin-top: 20px;
+}
+
+.vendas-diarias-item, .vendas-mensais-item {
+  margin-bottom: 20px;
+}
+
+.vendas-diarias-item h3, .vendas-mensais-item h3 {
+  margin-bottom: 10px;
+}
+
+.vendas-diarias-item ul, .vendas-mensais-item ul {
+  list-style: none;
+  padding: 0;
+}

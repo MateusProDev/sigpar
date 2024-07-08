@@ -1,23 +1,54 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Chart, LineElement, PointElement, LineController, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { Chart, LineElement, PointElement, LineController, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js';
 import './NotasFiscais.css';
 
 // Registre os componentes necessários do Chart.js
 Chart.register(LineElement, PointElement, LineController, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
 const NotasFiscais = () => {
-  const [notasFiscais, setNotasFiscais] = useState(() => {
-    const savedNotas = localStorage.getItem('notasFiscais');
-    return savedNotas ? JSON.parse(savedNotas) : [];
-  });
-
+  const [notasFiscais, setNotasFiscais] = useState([]);
   const [dataPesquisa, setDataPesquisa] = useState('');
   const [resultadosPesquisa, setResultadosPesquisa] = useState([]);
+  const [vendasDiarias, setVendasDiarias] = useState({});
+  const [vendasMensais, setVendasMensais] = useState({});
   const chartRef = useRef(null);
 
   useEffect(() => {
-    localStorage.setItem('notasFiscais', JSON.stringify(notasFiscais));
+    const savedNotas = localStorage.getItem('notasFiscais');
+    setNotasFiscais(savedNotas ? JSON.parse(savedNotas) : []);
+  }, []);
+
+  useEffect(() => {
+    if (notasFiscais.length === 0) return;
+
+    const calcularVendas = () => {
+      const vendasDiariasData = {};
+      const vendasMensaisData = {};
+
+      notasFiscais.forEach(nota => {
+        const dataNota = new Date(nota.data);
+        const diaNota = `${dataNota.getDate()}/${dataNota.getMonth() + 1}/${dataNota.getFullYear()}`;
+        const mesNota = `${dataNota.getMonth() + 1}/${dataNota.getFullYear()}`;
+
+        // Calcula vendas diárias
+        if (!vendasDiariasData[diaNota]) {
+          vendasDiariasData[diaNota] = 0;
+        }
+        vendasDiariasData[diaNota] += nota.total;
+
+        // Calcula vendas mensais
+        if (!vendasMensaisData[mesNota]) {
+          vendasMensaisData[mesNota] = 0;
+        }
+        vendasMensaisData[mesNota] += nota.total;
+      });
+
+      setVendasDiarias(vendasDiariasData);
+      setVendasMensais(vendasMensaisData);
+    };
+
+    calcularVendas();
   }, [notasFiscais]);
 
   const handlePesquisar = () => {
@@ -82,6 +113,7 @@ const NotasFiscais = () => {
             <div key={index} className="nota-fiscal">
               <h2>Nota Fiscal</h2>
               <p>Mesa {nota.mesaId}</p>
+              <p>Garçom: {nota.garcon}</p> {/* Exibe o garçom na nota fiscal */}
               <ul>
                 {nota.pedidos.map((pedido, index) => (
                   <li key={index}>
@@ -102,6 +134,22 @@ const NotasFiscais = () => {
       <div className="grafico-container">
         <h2>Notas Fiscais Emitidas por Mês</h2>
         <Line ref={chartRef} data={dadosGrafico} />
+      </div>
+      <div className="vendas-diarias">
+        <h2>Vendas Diárias</h2>
+        <ul>
+          {Object.entries(vendasDiarias).map(([data, total], index) => (
+            <li key={index}>{data}: R${total.toFixed(2)}</li>
+          ))}
+        </ul>
+      </div>
+      <div className="vendas-mensais">
+        <h2>Vendas Mensais</h2>
+        <ul>
+          {Object.entries(vendasMensais).map(([mes, total], index) => (
+            <li key={index}>{mes}: R${total.toFixed(2)}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );

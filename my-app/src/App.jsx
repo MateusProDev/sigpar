@@ -8,6 +8,7 @@ import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute';
 import Estoque from './components/Estoque';
 import NotasFiscais from './components/NotasFiscais';
+import CadastroGarcons from './components/CadastroGarcons';
 import './index.css';
 
 const App = () => {
@@ -38,7 +39,7 @@ const App = () => {
             path="/estoque"
             element={
               <PrivateRoute>
-                <Estoque /> {/* Nova rota para o estoque */}
+                <Estoque />
               </PrivateRoute>
             }
           />
@@ -47,6 +48,14 @@ const App = () => {
             element={
               <PrivateRoute>
                 <NotasFiscais />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/cadastroGarcons"
+            element={
+              <PrivateRoute>
+                <CadastroGarcons />
               </PrivateRoute>
             }
           />

@@ -8,7 +8,7 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
   const [showNotaFiscal, setShowNotaFiscal] = useState(false);
   const [notaFiscal, setNotaFiscal] = useState([]);
   const [totalNotaFiscal, setTotalNotaFiscal] = useState(0);
-  
+  const [garconSelecionado, setGarconSelecionado] = useState('');
 
   const [cardapio] = useState(() => {
     const savedCardapio = localStorage.getItem('cardapio');
@@ -18,6 +18,11 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
   const [estoque] = useState(() => {
     const savedEstoque = localStorage.getItem('estoque');
     return savedEstoque ? JSON.parse(savedEstoque) : [];
+  });
+
+  const [garcons] = useState(() => {
+    const savedGarcons = localStorage.getItem('garcons');
+    return savedGarcons ? JSON.parse(savedGarcons) : [];
   });
 
   useEffect(() => {
@@ -35,13 +40,14 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
   }, [novoPedido, cardapio, estoque]);
 
   const handleAddPedido = () => {
-    if (novoPedido.trim() && valorPedido) {
-      adicionarPedido(mesa.id, { nome: novoPedido.trim(), valor: parseFloat(valorPedido) });
+    if (novoPedido.trim() && valorPedido && garconSelecionado) {
+      adicionarPedido(mesa.id, { nome: novoPedido.trim(), valor: parseFloat(valorPedido), garcon: garconSelecionado });
       setNovoPedido('');
       setValorPedido('');
+      setGarconSelecionado('');
       setProdutosFiltrados([]);
     } else {
-      alert('Por favor, preencha o nome do pedido e o valor.');
+      alert('Por favor, preencha o nome do pedido, o valor e selecione um garçom.');
     }
   };
 
@@ -71,24 +77,26 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
       mesaId: mesa.id,
       pedidos: pedidosNotaFiscal,
       total: parseFloat(total),
-      data: new Date().toISOString()
+      data: new Date().toISOString(),
+      garcon: garconSelecionado // Adiciona o garçom à nota fiscal
     };
-
+  
     const savedNotas = localStorage.getItem('notasFiscais');
     const notas = savedNotas ? JSON.parse(savedNotas) : [];
     notas.push(novaNotaFiscal);
     localStorage.setItem('notasFiscais', JSON.stringify(notas));
-
+  
     const printContents = document.getElementById(`nota-fiscal-${mesa.id}`).innerHTML;
     const originalContents = document.body.innerHTML;
-
+  
     document.body.innerHTML = printContents;
     window.print();
     document.body.innerHTML = originalContents;
-
+  
     setShowNotaFiscal(false);
     window.location.reload(); // Adiciona um recarregamento da página para restaurar o estado
   };
+  
 
   const handleProdutoSelecionado = (produto) => {
     setNovoPedido(produto.nome);
@@ -111,7 +119,7 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
       <ul>
         {mesa.pedidos.map((pedido, index) => (
           <li key={index}>
-            {pedido.nome} - R${pedido.valor.toFixed(2)}
+            {pedido.nome} - R${pedido.valor.toFixed(2)} - Garçom: {pedido.garcon}
             <button onClick={() => handleRemoverPedido(index)}>Remover</button>
           </li>
         ))}
@@ -141,6 +149,15 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
           value={valorPedido}
           onChange={(e) => setValorPedido(e.target.value)}
         />
+        <select
+          value={garconSelecionado}
+          onChange={(e) => setGarconSelecionado(e.target.value)}
+        >
+          <option value="">Selecione um Garçom</option>
+          {garcons.map((garcon) => (
+            <option key={garcon.id} value={garcon.nome}>{garcon.nome}</option>
+          ))}
+        </select>
         <button onClick={handleAddPedido}>Adicionar Pedido</button>
       </div>
       <button className="fechar-mesa" onClick={handleShowNotaFiscal}>
@@ -154,6 +171,7 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
         <div id={`nota-fiscal-${mesa.id}`} className="nota-fiscal">
           <h2>Nota Fiscal</h2>
           <p>Mesa {mesa.id}</p>
+          <p>Garçom: {garconSelecionado}</p> {/* Exibe o garçom na nota fiscal */}
           <ul>
             {notaFiscal.map((pedido, index) => (
               <li key={index}>
@@ -166,7 +184,6 @@ const Mesa = ({ mesa, adicionarPedido, removerPedido, fecharMesa }) => {
           </div>
           <p>Data: {getCurrentDateTime()}</p>
           <button onClick={handlePrintNotaFiscal}>Imprimir Nota Fiscal</button>
-          
         </div>
       )}
     </div>

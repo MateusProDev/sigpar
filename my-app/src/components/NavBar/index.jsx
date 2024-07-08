@@ -13,6 +13,9 @@ const NavBar = () => {
           <Link to="/juntarmesasrelatorio">Mesas</Link>
         </li>
         <li>
+          <Link to="/CadastroGarcons">Garçons</Link>
+        </li>
+        <li>
           <Link to="/Estoque">Estoque</Link>
         </li>
         <li>
