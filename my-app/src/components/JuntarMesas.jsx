@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Relatorio from './Relatorio';
 
 const JuntarMesas = ({ mesas, juntarMesas, separarMesas }) => {
   const [mesa1Id, setMesa1Id] = useState('');
@@ -45,6 +46,8 @@ const JuntarMesas = ({ mesas, juntarMesas, separarMesas }) => {
       </select>
       <button onClick={handleJuntarMesas}>Juntar Mesas</button>
       <button onClick={handleSepararMesas}>Separar Mesa</button>
+
+      <div><Relatorio mesas={mesas} /></div>
     </div>
   );
 };

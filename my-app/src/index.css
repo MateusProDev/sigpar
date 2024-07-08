@@ -32,9 +32,36 @@ body {
 .box:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
-.mesas-container{
-  width: 50%;
+.mesas-container {
+  display: flex;
+  width: 70%;
+  justify-content: center;
+  flex-wrap: wrap; /* Espaçamento entre as mesas */
+  padding: 20px;
+  background-color: #f9f9f9; /* Cor de fundo opcional */
 }
+
+.mesas-boxs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mesas-boxs .mesa {
+  flex: 1 1 calc(50% - 20px); /* Cada mesa ocupará 50% da largura do contêiner menos o espaçamento */
+  box-sizing: border-box;
+  background-color: #fff; /* Cor de fundo opcional */
+  border: 1px solid #ddd; /* Borda opcional */
+  border-radius: 8px; /* Cantos arredondados */
+  padding: 10px; /* Espaçamento interno */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+}
+
+@media (max-width: 768px) {
+  .mesas-boxs .mesa {
+    flex: 1 1 calc(100% - 20px); /* Em telas menores, as mesas ocuparão 100% da largura */
+  }
+}
+
 .fechar-mesa{
   margin-top: 5px;
   background-color: #e49c01;

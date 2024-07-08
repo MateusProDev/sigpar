@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Mesa from './Mesa';
 import JuntarMesas from './JuntarMesas';
-import Relatorio from './Relatorio';
+// import Relatorio from './Relatorio';
 
 const initialMesas = Array.from({ length: 15 }, (_, index) => ({
   id: index + 1,
@@ -130,17 +130,19 @@ const GerenciamentoMesas = () => {
     <div className='flex'>
       <div className='flex-mesa'>
       <div className="mesas-container box">
-        {mesas.map(mesa => (
-          <Mesa
-            key={mesa.id}
-            mesa={mesa}
-            adicionarPedido={adicionarPedido}
-            removerPedido={removerPedido}
-            fecharMesa={fecharMesa}
-          />
-        ))}
+        <div className='mesas-boxs'>
+          {mesas.map(mesa => (
+            <Mesa
+              key={mesa.id}
+              mesa={mesa}
+              adicionarPedido={adicionarPedido}
+              removerPedido={removerPedido}
+              fecharMesa={fecharMesa}
+            />
+          ))}
+        </div>
       </div>
-      <div className='box'><Relatorio mesas={mesas} /></div>
+      {/* <div className='box'><Relatorio mesas={mesas} /></div> */}
       <div className='box'><JuntarMesas mesas={mesas} juntarMesas={juntarMesas} separarMesas={separarMesas} /></div>
       </div>
     </div>
