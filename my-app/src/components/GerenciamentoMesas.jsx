@@ -128,6 +128,7 @@ const GerenciamentoMesas = () => {
 
   return (
     <div className='flex'>
+      <div className='flex-mesa'>
       <div className="mesas-container box">
         {mesas.map(mesa => (
           <Mesa
@@ -141,6 +142,7 @@ const GerenciamentoMesas = () => {
       </div>
       <div className='box'><Relatorio mesas={mesas} /></div>
       <div className='box'><JuntarMesas mesas={mesas} juntarMesas={juntarMesas} separarMesas={separarMesas} /></div>
+      </div>
     </div>
   );
 };

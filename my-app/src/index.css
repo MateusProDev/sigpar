@@ -12,7 +12,10 @@ body {
   justify-content: space-around;
   margin-top: 20px;
 }
-
+.flex-mesa{
+  display: flex;
+  width: 80%;
+}
 /* Estilo para cada caixa (box) dos componentes */
 .box {
   width: 350px;
